@@ -1,0 +1,89 @@
+// ================================
+// Función principal: suma (i^2 + 1) desde i=0 hasta i=n
+// ================================
+function Main.computeSum 2   // locals: i, sum
+  // i = 0
+  push constant 0
+  pop local 0
+  // sum = 0
+  push constant 0
+  pop local 1
+
+  label LOOP_START
+  // if (i > n) goto LOOP_END
+  push local 0
+  push argument 0
+  gt
+  if-goto LOOP_END
+
+  // ----- r = square(i) -----
+  push local 0
+  call Main.square 1
+
+  // ----- r = addOne(r) => i^2 + 1 -----
+  call Main.addOne 1
+
+  // sum = sum + r
+  push local 1
+  add
+  pop local 1
+
+  // i = i + 1
+  push local 0
+  push constant 1
+  add
+  pop local 0
+
+  goto LOOP_START
+  label LOOP_END
+  // return sum
+  push local 1
+  return
+
+// ================================
+// Main.square: calcula x*x usando suma repetida (sin recursión)
+// ================================
+function Main.square 3   // locals: acc, cnt, val
+  // acc = 0
+  push constant 0
+  pop local 0
+  // cnt = x (argumento)
+  push argument 0
+  pop local 1
+  // val = x
+  push argument 0
+  pop local 2
+
+  label S_LOOP
+  // if (cnt == 0) goto S_END
+  push local 1
+  push constant 0
+  eq
+  if-goto S_END
+
+  // acc = acc + val
+  push local 0
+  push local 2
+  add
+  pop local 0
+
+  // cnt = cnt - 1
+  push local 1
+  push constant 1
+  sub
+  pop local 1
+
+  goto S_LOOP
+  label S_END
+  // return acc
+  push local 0
+  return
+
+// ================================
+// Main.addOne: retorna x + 1
+// ================================
+function Main.addOne 0
+  push argument 0
+  push constant 1
+  add
+  return

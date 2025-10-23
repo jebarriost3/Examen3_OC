@@ -1,0 +1,8 @@
+// Sys.init: fija n y llama a Main.computeSum
+function Sys.init 0
+  // ---- n constante ----
+  push constant 10          // Se cambia el valor de n aquí
+  call Main.computeSum 1   // computeSum(n)
+  // Mantener la CPU ocupada tras el retorno
+  label END
+  goto END
